@@ -18,8 +18,10 @@ int main() {
 
   Parser P(input);
   JSONValue json = P.parse();
-  std::cout
-      << json["fool"].value()["street"].value().visit<std::string>().value()
-      << std::endl;
+  auto dic = json.get<JSONObject>();
+  auto grades = dic.at("grades").get<JSONArray>();
+  for (auto grade : grades) {
+    std::cout << grade.get<double>() << std::endl;
+  }
   return 0;
 }

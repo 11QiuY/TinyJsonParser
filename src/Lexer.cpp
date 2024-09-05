@@ -1,7 +1,7 @@
 #include "Lexer.hpp"
 #include <cctype>
 #include <stdexcept>
-#define DEBUG
+#define NDEBUG
 
 #ifdef DEBUG
 #include <iostream>
@@ -125,7 +125,6 @@ std::vector<Token> Lexer::tokenize() {
     }
     }
   }
-  std::cout << "End" << std::endl;
 
   tokens.push_back({TokenType::END, ""});
   return tokens;

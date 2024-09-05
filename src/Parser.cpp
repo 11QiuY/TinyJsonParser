@@ -15,19 +15,19 @@ JSONValue Parser::parseValue() {
   Token token = currentToken();
   switch (token.type) {
   case TokenType::LBRACE:
-    return JSONValue(parseObject());
+    return parseObject();
   case TokenType::LBRACKET:
-    return JSONValue(parseArray());
+    return parseArray();
   case TokenType::STRING:
-    return JSONValue(parseString());
+    return parseString();
   case TokenType::NUMBER:
-    return JSONValue(parseNumber());
+    return parseNumber();
   case TokenType::TRUE:
-    return JSONValue(parseBoolean());
+    return parseBoolean();
   case TokenType::FALSE:
-    return JSONValue(parseBoolean());
+    return parseBoolean();
   case TokenType::NULL_:
-    return JSONValue(parseNull());
+    return parseNull();
   default:
     throw std::runtime_error("Invalid JSON");
   }

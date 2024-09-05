@@ -2,9 +2,7 @@
 #define JSONTYPE_HPP
 
 #include <cstddef>
-#include <iostream>
 #include <map>
-#include <optional>
 #include <stdexcept>
 #include <string>
 #include <variant>
@@ -29,22 +27,10 @@ struct JSONValue {
 
   JSONValue() : value(nullptr) {}
 
-  std::optional<JSONValue> operator[](const std::string &key);
+  template <typename T> T &get() { return std::get<T>(value); }
 
-  std::optional<JSONValue> operator[](const size_t index);
+  template <typename T> bool is() { return std::holds_alternative<T>(value); }
 
-  template <typename T> std::optional<T> visit() const {
-    if constexpr (check_type<T>()) {
-      if (auto ptr = std::get_if<T>(&value)) {
-        return *ptr;
-      } else {
-        return std::nullopt;
-      }
-    } else {
-      std::cout << "Invalid type\n";
-      return std::nullopt;
-    }
-  }
   template <typename T> constexpr bool check_type() const {
     using K = std::decay_t<T>;
     return std::is_same_v<K, std::nullptr_t> || std::is_same_v<K, bool> ||
