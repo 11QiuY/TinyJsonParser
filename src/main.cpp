@@ -1,5 +1,4 @@
 #include "JsonType.hpp"
-#include "Lexer.hpp"
 #include "Parser.hpp"
 #include <iostream>
 
@@ -8,7 +7,7 @@ int main() {
         {
         "name": "Blackmyth Wukong",
         "age": 0.04, 
-    00    "isStudent": false,
+        "isStudent": false,
         "grades": [10, 8, 6],
         "address": {
             "street": "Shuilian Cave",
@@ -17,13 +16,10 @@ int main() {
         "job": "god who equals to heaven"
         }   )";
 
-  Lexer lexer(input);
-  auto tokens = lexer.tokenize();
-  Parser parser(tokens);
-  JSONValue json = parser.parse();
-  auto x = json.find("job");
-  if (x) {
-    std::cout << "job: " << std::get<std::string>(x->value) << std::endl;
-  }
+  Parser P(input);
+  JSONValue json = P.parse();
+  std::cout
+      << json["fool"].value()["street"].value().visit<std::string>().value()
+      << std::endl;
   return 0;
 }

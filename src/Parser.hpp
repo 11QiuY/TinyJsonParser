@@ -10,6 +10,7 @@
 class Parser {
 public:
   Parser(const std::vector<Token> &tokens) : tokens(tokens), pos(0) {}
+  Parser(std::string_view input) : tokens(Lexer(input).tokenize()), pos(0) {}
   JSONValue parse();
 
 private:
